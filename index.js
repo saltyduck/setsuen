@@ -1,9 +1,9 @@
 function safeLoad(key, initVal, filterFunc) {
     let v = localStorage.getItem(key);
-    v = v ? v : initVal;
-    if (typeof filterFunc == "function") {
+    if (v && typeof filterFunc == "function") {
 	v = filterFunc(v);
     }
+    v = v ? v : initVal;
     return v;
 }
 
@@ -35,15 +35,17 @@ let HonLog = {
     },
     refreshDate: function () {
 	let now = time2days(Date.now());
-	if (this.todayDate == now) {
+	if (this.todayDate == now) { // 日付が変わってなければスキップ
 	    return;
 	}
-	let lastDayStr = new Date(this.todayDate * MSEC_DAY).toLocaleString("ja-JP", {
-	    year: "numeric",
-	    month: "numeric",
-	    day: "numeric"
-	});
-	this.history.unshift({date: lastDayStr, hon: this.today});
+	if (this.todayDate) { // 初期値でなければ…
+	    let lastDayStr = new Date(this.todayDate * MSEC_DAY).toLocaleString("ja-JP", {
+		year: "numeric",
+		month: "numeric",
+		day: "numeric"
+	    });
+	    this.history.unshift({date: lastDayStr, hon: this.today});
+	}
 	this.today = 0;
 	this.todayDate = now;
 	this.save();
