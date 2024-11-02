@@ -1,9 +1,60 @@
-let lastTime = localStorage.getItem("lastTime"); // 無いとnullが返ってくる
-let history = localStorage.getItem("history");
-history = history ? JSON.parse(history) : [];
+function safeLoad(key, initVal, filterFunc) {
+    let v = localStorage.getItem(key);
+    v = v ? v : initVal;
+    if (typeof filterFunc == "function") {
+	v = filterFunc(v);
+    }
+    return v;
+}
+
+let lastTime = safeLoad("lastTime", 0);
+let history = safeLoad("history", [], (h)=>JSON.parse(h));
 
 const okTime = ((1*60)+50)*60*1000; // また吸える時間。1時間50分後
 const bannerTime = 2.5*1000; // よくやった！の表示時間
+
+const MSEC_DAY = 24*60*60*1000;
+
+function time2days(t) {
+    return Math.floor(t / MSEC_DAY);
+}
+
+let HonLog = {
+    today: 0,
+    history: [],
+    todayDate: 0,
+
+    save: function () {
+	localStorage.setItem("hon", JSON.stringify(this));
+    },
+    load: function () {
+	let v = safeLoad("hon", {today:0, history:[], todayDate: 0}, (h)=>JSON.parse(h));
+	this.today = v.today;
+	this.history = v.history;
+	this.todayDate = v.todayDate;
+    },
+    refreshDate: function () {
+	let now = time2days(Date.now());
+	if (this.todayDate == now) {
+	    return;
+	}
+	let lastDayStr = new Date(this.todayDate * MSEC_DAY).toLocaleString("ja-JP", {
+	    year: "numeric",
+	    month: "numeric",
+	    day: "numeric"
+	});
+	this.history.unshift({date: lastDayStr, hon: this.today});
+	this.today = 0;
+	this.todayDate = now;
+	this.save();
+    },
+    add: function () {
+	this.refreshDate();
+	this.today++;
+	this.save();
+    }
+};
+HonLog.load();
 
 const Status = {
     ok: 1,
@@ -35,6 +86,7 @@ function showMain(status) {
     } else {
 	elemCongratuations.style.display = 'block';
     }
+    document.getElementById('hon-today').innerText = HonLog.today;
 }
 
 function formatTimeSpan(span, noMSec) {
@@ -64,9 +116,9 @@ function updateTimer() {
 
     let status = getStatus(currentTime)
     showMain(status);
+    HonLog.refreshDate();
 }
 
-setInterval(updateTimer, 100); // 0.1秒ごとに更新
 
 function formatTime(t) {
     return new Date(t).toLocaleString("ja-JP", {
@@ -106,6 +158,7 @@ function sutta() {
     registerSutta(now, lastTime);
     lastTime = now;
     localStorage.setItem("lastTime", lastTime);
+    HonLog.add();
 }
 
 function demoSuu() {
@@ -115,12 +168,14 @@ function demoSuu() {
     registerSutta(now, lastTime);
     lastTime = now;
     localStorage.setItem("lastTime", lastTime);
+    HonLog.add();
 }
 
 function onPageLoad() {
     document.getElementById("btn-sutta").addEventListener("click", sutta);
     document.getElementById("btn-demo-suu").addEventListener("click", demoSuu);
     showHistory();
+    setInterval(updateTimer, 100); // 0.1秒ごとに更新
 }
 
 document.addEventListener('DOMContentLoaded', onPageLoad);
