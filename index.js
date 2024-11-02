@@ -2,8 +2,7 @@ let lastTime = localStorage.getItem("lastTime"); // 無いとnullが返ってく
 let history = localStorage.getItem("history");
 history = history ? JSON.parse(history) : [];
 
-//const okTime = 2*60*60*1000; // また吸える時間。2時間後
-const okTime = 30*1000; // また吸える時間。
+const okTime = 2*60*60*1000; // また吸える時間。2時間後
 const bannerTime = 2.5*1000; // よくやった！の表示時間
 
 const Status = {
