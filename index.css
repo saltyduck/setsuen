@@ -1,0 +1,47 @@
+#main div { 
+    display: flex;
+    justify-content: center; /* 横方向の中央揃え */
+    text-align: center;
+}
+
+#zenkai-kara {
+    margin-top: 20px;
+}
+
+#btn-demo-suu {
+    background: none;
+}
+
+#btn-sutta {
+    background: green;
+    color: white;
+    font-size: 20pt;
+    padding: 26px 20px;
+    border-radius: 100px;
+
+}
+
+#congratuations {
+    display: none;
+    background: green;
+    color: white;
+    font-size: 20pt;    
+}
+
+#wait {
+    display: none;
+    font-size: 20pt;
+}
+
+#history table {
+    margin: 20px auto auto auto;
+}
+
+#history table th {
+    border-bottom: 1px solid black;
+}
+
+#history table td {
+    padding: 2px 15px;
+}
+
