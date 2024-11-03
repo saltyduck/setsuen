@@ -10,8 +10,8 @@ function safeLoad(key, initVal, filterFunc) {
 let lastTime = safeLoad("lastTime", 0);
 let history = safeLoad("history", [], (h)=>JSON.parse(h));
 
-//const okTime = ((1*60)+50)*60*1000; // また吸える時間。1時間50分後
-const okTime = 10*1000; // また吸える時間。
+const okTime = ((1*60)+50)*60*1000; // また吸える時間。1時間50分後
+// const okTime = 10*1000; // また吸える時間。デバッグ用
 const bannerTime = 2.5*1000; // よくやった！の表示時間
 
 const MSEC_DAY = 24*60*60*1000;
