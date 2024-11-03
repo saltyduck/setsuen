@@ -15,9 +15,10 @@ const okTime = ((1*60)+50)*60*1000; // また吸える時間。1時間50分後
 const bannerTime = 2.5*1000; // よくやった！の表示時間
 
 const MSEC_DAY = 24*60*60*1000;
+const JST_OFFSET = 9*60*60*1000;
 
 function time2days(t) {
-    return Math.floor(t / MSEC_DAY);
+    return Math.floor((t + JST_OFFSET)/ MSEC_DAY);
 }
 
 let HonLog = {
