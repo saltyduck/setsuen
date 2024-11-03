@@ -1,6 +1,8 @@
-body {
-    font-size: 200%;
+body, table, button {
+    font-size: 40px;
 }
+
+
 
 #main div { 
     text-align: center;
@@ -23,7 +25,7 @@ body {
 #btn-sutta {
     background: green;
     color: white;
-    font-size: 20pt;
+    font-size: 1.5em;
     padding: 26px 20px;
     border-radius: 100px;
 
@@ -33,12 +35,12 @@ body {
     display: none;
     background: green;
     color: white;
-    font-size: 20pt;    
+    font-size: 1.5em;    
 }
 
 #wait {
     display: none;
-    font-size: 20pt;
+    font-size: 1.5em;
 }
 
 #history table {
