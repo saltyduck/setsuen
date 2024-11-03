@@ -17,8 +17,11 @@ const bannerTime = 2.5*1000; // よくやった！の表示時間
 const MSEC_DAY = 24*60*60*1000;
 const JST_OFFSET = 9*60*60*1000;
 
-function time2days(t) {
-    return Math.floor((t + JST_OFFSET)/ MSEC_DAY);
+function time2day(t) {
+    return Math.floor((t + JST_OFFSET) / MSEC_DAY);
+}
+function day2time(days) {
+    return days * MSEC_DAY - JST_OFFSET;
 }
 
 let HonLog = {
@@ -36,12 +39,12 @@ let HonLog = {
 	this.todayDate = v.todayDate;
     },
     refreshDate: function () {
-	let now = time2days(Date.now());
+	let now = time2day(Date.now());
 	if (this.todayDate == now) { // 日付が変わってなければスキップ
 	    return;
 	}
 	if (this.todayDate) { // 初期値でなければ…
-	    let lastDayStr = new Date(this.todayDate * MSEC_DAY).toLocaleString("ja-JP", {
+	    let lastDayStr = new Date(day2time(this.todayDate)).toLocaleString("ja-JP", {
 		year: "numeric",
 		month: "numeric",
 		day: "numeric"
