@@ -2,7 +2,9 @@ body, table, button {
     font-size: 40px;
 }
 
-
+body {
+    padding-top: 40px;
+}
 
 #main div { 
     text-align: center;
