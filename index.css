@@ -58,6 +58,10 @@ body {
     padding: 2px 15px;
 }
 
+#daylog-page {
+    display: none;
+}
+
 #daylog table {
     margin: 20px auto auto auto;
 }

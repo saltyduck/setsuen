@@ -208,6 +208,7 @@ function onPageLoad() {
     document.getElementById("btn-demo-suu").addEventListener("click", demoSuu);
     document.getElementById("btn-back").addEventListener("click", hideDayLog);
     document.getElementById("btn-show-daylog").addEventListener("click", showDayLog);
+    hideDayLog();
     showHistory();
     setInterval(updateTimer, 100); // 0.1秒ごとに更新
 }
