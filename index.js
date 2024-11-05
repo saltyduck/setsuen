@@ -178,9 +178,36 @@ function demoSuu() {
     HonLog.add();
 }
 
+function drawDayLog() {
+    if (HonLog.history.length == 0) {
+	return;
+    }
+    let rows = [];
+    HonLog.history.forEach((e) => {
+	rows.push("<tr><td>" + e.date + '</td><td class="numcell">' + e.hon + "本</td></tr>");
+    });
+    document.getElementById("daylog").innerHTML = "<table>" +
+	"<tr><th>日付</th><th>吸った本数</th></tr>" +
+	rows.join('') +
+	"</table>";
+}
+
+function showDayLog() {
+    drawDayLog();
+    document.getElementById("front-page").style.display = 'none';
+    document.getElementById("daylog-page").style.display = 'block';
+}
+
+function hideDayLog() {
+    document.getElementById("front-page").style.display = 'block';
+    document.getElementById("daylog-page").style.display = 'none';
+}
+
 function onPageLoad() {
     document.getElementById("btn-sutta").addEventListener("click", sutta);
     document.getElementById("btn-demo-suu").addEventListener("click", demoSuu);
+    document.getElementById("btn-back").addEventListener("click", hideDayLog);
+    document.getElementById("btn-show-daylog").addEventListener("click", showDayLog);
     showHistory();
     setInterval(updateTimer, 100); // 0.1秒ごとに更新
 }

@@ -1,9 +1,9 @@
 <html><head>
-    <meta name="content-type" value="text/html; charset=utf8"/>
-    <script src="index.js"></script>
-    <link href="index.css" rel="stylesheet" type="text/css" media="all"/>    
-    </head><body>
-
+  <meta name="content-type" value="text/html; charset=utf8"/>
+  <script src="index.js"></script>
+  <link href="index.css" rel="stylesheet" type="text/css" media="all"/>
+</head><body>
+  <div id="front-page">
     <div id="main">
       <div class="center">
 	<button id="btn-sutta">吸う</button>
@@ -22,9 +22,15 @@
       </div>
       <div>
 	今日吸った本数&nbsp;<span id="hon-today">0</span>&nbsp;&nbsp;&nbsp;&nbsp;
-	<button id="hon-log">ログ</button>
+	<button id="btn-show-daylog">ログ</button>
       </div>
     </div>
     <div id="history"></div>
+  </div>
+  <div id="daylog-page">
+    <button id="btn-back">戻る</button>
+    <div id="daylog">
+    </div>
+  </div>
 </body>
 </html>

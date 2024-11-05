@@ -6,7 +6,8 @@ body {
     padding-top: 40px;
 }
 
-#main div { 
+#main div,
+#daylog {
     text-align: center;
 }
 
@@ -55,5 +56,21 @@ body {
 
 #history table td {
     padding: 2px 15px;
+}
+
+#daylog table {
+    margin: 20px auto auto auto;
+}
+
+#daylog table th {
+    border-bottom: 1px solid black;
+}
+
+#daylog table td {
+    padding: 2px 15px;
+}
+
+td.numcell {
+    text-align: right;
 }
 
