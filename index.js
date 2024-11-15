@@ -10,9 +10,9 @@ function safeLoad(key, initVal, filterFunc) {
 let lastTime = safeLoad("lastTime", 0);
 let history = safeLoad("history", [], (h)=>JSON.parse(h));
 
-const okTime = ((1*60)+50)*60*1000; // また吸える時間。1時間50分後
+const okTime = ((2*60)+20)*60*1000; // また吸える時間。2時間20分後
 //const okTime = 10*1000; // また吸える時間。デバッグ用
-const bannerTime = 2.5*1000; // よくやった！の表示時間
+const bannerTime = 10*1000; // よくやった！の表示時間
 
 const MSEC_DAY = 24*60*60*1000;
 const JST_OFFSET = 9*60*60*1000;
@@ -136,15 +136,27 @@ function formatTime(t) {
     });
 }
 
+function getDay(t) {
+    return new Date(t).getDate();
+}
+
 function showHistory() {
     if (history.length == 0) {
 	return;
     }
     let rows = [];
+    let lastDay = getDay(Date.now());
     history.forEach((e) => {
 	let timeStr = formatTime(e.time);
 	let intervalStr = formatTimeSpan(e.interval, true);
-	rows.push("<tr><td>" + timeStr + "</td><td>" + intervalStr + "</td></tr>");
+	let today = getDay(e.time);
+	if (today != lastDay) {
+	    lastDay = today;
+	    rows.push("<tr class=\"daysep\"><td>" + timeStr +
+		      "</td><td>" + intervalStr + "</td></tr>");
+	} else {
+	    rows.push("<tr><td>" + timeStr + "</td><td>" + intervalStr + "</td></tr>");
+	}
     });
     document.getElementById('history').innerHTML = 
 	"<table><tr><th>吸った時刻</th><th>前回からの経過時間</th></tr>" +
