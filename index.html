@@ -2,6 +2,8 @@
   <meta name="content-type" value="text/html; charset=utf8"/>
   <script src="index.js"></script>
   <link href="index.css" rel="stylesheet" type="text/css" media="all"/>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#3367D6">
 </head><body>
   <div id="front-page">
     <div id="main">
@@ -32,5 +34,13 @@
     <div id="daylog">
     </div>
   </div>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register("/setsuen/sw.js")
+	    .then(() => console.log("SW registered"));
+    }
+  </script>
+
 </body>
 </html>
