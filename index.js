@@ -16,6 +16,7 @@ const bannerTime = 10*1000; // よくやった！の表示時間
 
 const MSEC_DAY = 24*60*60*1000;
 const JST_OFFSET = 9*60*60*1000;
+const HISTORY_MAX = 365*10; // 一日10本で1年分
 
 function time2day(t) {
     return Math.floor((t + JST_OFFSET) / MSEC_DAY);
@@ -166,6 +167,9 @@ function showHistory() {
 
 function registerSutta(now, last) {
     history.unshift({time: now, interval: now - last});
+    if (history.length > HISTORY_MAX) {
+	history = history.slice(0, HISTORY_MAX - 5);
+    }
     localStorage.setItem("history", JSON.stringify(history));
     showHistory();
 }
